@@ -1,0 +1,18 @@
+{
+    "name": "jonathan13779/framework",
+    "description": "php framework",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Jonathan13779\\Framework\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jonathan",
+            "email": "jonathan13779@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
