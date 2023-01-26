@@ -2,7 +2,8 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-use Jonathan13779\Framework\Test;
+use Jonathan13779\Framework\CoreFactory;
+use Jonathan13779\Framework\CoreHttp;
 
-$test = new Test;
-$test->test();
+$core = CoreFactory::create(CoreHttp::class);
+$core->handle();
