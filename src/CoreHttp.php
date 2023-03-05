@@ -2,32 +2,21 @@
 
 namespace Jonathan13779\Framework;
 
-use Jonathan13779\Framework\Modules\Middleware\MiddlewareHandler;
-use Jonathan13779\Framework\Modules\Container\Container;
+use Jonathan13779\Framework\Contracts\MiddlewareHandlerContract;
+use Jonathan13779\Framework\Modules\Middleware\MiddlewareHandlerTrait;
+use Jonathan13779\Framework\Modules\Http\Router;
 use Jonathan13779\Framework\Modules\Http\Request;
 use Throwable;
 
-class CoreHttp extends MiddlewareHandler{
+class CoreHttp extends MiddlewareHandlerContract{
+    use MiddlewareHandlerTrait;
+    private Request $request;
 
-    private $handler;
-
-    public function __construct(
-        Request $request,
-
-    )
+    protected function execute($request)
     {
         $this->request = $request;
-    }
-
-   public function process(Request $request){
-        try{
-
-        }
-        catch(Throwable $err){
-            
-        }
-
-        echo 'dsdsd';
-        var_dump($request);
+        $route = Router::match($request);
+        return $route;
+    
     }
 }

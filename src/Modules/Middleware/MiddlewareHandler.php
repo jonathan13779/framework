@@ -1,14 +1,38 @@
 <?php
 namespace Jonathan13779\Framework\Modules\Middleware;
 
-use ZEngine\Module\Container;
+use Jonathan13779\Framework\Contracts\MiddlewareHandlerContract;
+use Jonathan13779\Framework\Modules\Container\Container;
 
-class MiddlewareHandler{
+class MiddlewareHandler extends MiddlewareHandlerContract{
     
-    protected $middlewares = [];    
-    protected $request;
 
-    public function execute($middleware){
+    public function handle($inputData)
+    {
+        $middleware = current($this->middlewares);
+        next($this->middlewares);
+        $result = $this->execute($inputData, $middleware);
+        if ($middleware) {
+            $middleware = Container::build($middleware);
+
+            $response = $middleware->process($inputData, $this);
+
+            return $response;
+        }
+        else{
+            return $this->execute($inputData);
+        }
+
+        return $result;
+    }
+
+    protected function execute($inputData)
+    {
+        return null;
+    }
+
+
+/*    public function execute($middleware){
         
         if($middleware && class_exists($middleware)){
             $object = Container::build($middleware);
@@ -26,13 +50,6 @@ class MiddlewareHandler{
             return $this->process($this->request,$this);
             //return $this->response;
         }
-    }
+    }*/
 
-    public function handle(){
-	
-        $middleware = array_shift($this->middlewares);
-        
-        return $this->execute($middleware);
-       
-    }
 }

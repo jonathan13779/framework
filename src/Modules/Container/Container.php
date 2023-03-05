@@ -14,6 +14,21 @@ class Container{
 	public static function set($definition, $value){
 		self::$config[$definition] = $value;
 	}
+
+    public static function isDefined($definition): bool
+    {
+        if (array_key_exists($definition, self::$config)){
+            return true;
+        }
+        if (array_key_exists($definition, self::$singleton)){
+            return true;
+        }
+
+
+        return false;
+    }
+
+
 	public static function register($definition, $value){
 		self::set($definition, $value);
 	}

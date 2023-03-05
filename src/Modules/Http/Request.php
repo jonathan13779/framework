@@ -8,10 +8,10 @@ class Request{
 	private $server;
 	public $route;
 
-	public function __construct(Server $server)
+	public function __construct()
 	{
 		//print_r($_SERVER);
-		$this->server = $server;	
+		$this->server = new Server;	
 	}
 
 	public function __set($param,$value){
