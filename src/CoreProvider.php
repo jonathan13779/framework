@@ -4,7 +4,7 @@ namespace Jonathan13779\Framework;
 
 use Jonathan13779\Framework\Modules\Container\Container;
 
-trait CoreTrait{
+class CoreProvider{
 
     public static function singletons(array $singletons){
         Container::$singleton = array_merge(Container::$singleton, $singletons);
