@@ -54,22 +54,22 @@ class Response{
 		//return $root_path = dirname(__DIR__);
 		$path = __DIR__;
 
-		$pos = strpos($path, 'src');
+		$pos = strpos($path, '/vendor/');
 		if ($pos!==false){
 			return substr($path,0, $pos);
 		}
 
-		$pos = strpos($path, 'vendor');
+		$pos = strpos($path, '/src/');
 		if ($pos!==false){
 			return substr($path,0, $pos);
 		}
 
-		$pos = strpos($path, 'public');
+		$pos = strpos($path, '/public/');
 		if ($pos!==false){
 			return substr($path,0, $pos);
 		}
 
-		$pos = strpos($path, 'app');
+		$pos = strpos($path, '/app/');
 		if ($pos!==false){
 			return substr($path,0, $pos);
 		}
