@@ -44,7 +44,6 @@ class Response{
 	public function view(){
 		if($this->viewName!=''){
 			$root = $this->getPathRoot();
-			
 			extract($this->data);
 			require $root.'/'.$this->viewName;
 		}
@@ -52,6 +51,35 @@ class Response{
 	}
 
 	private function getPathRoot(){
+		//return $root_path = dirname(__DIR__);
+		$path = __DIR__;
+
+		$pos = strpos($path, 'src');
+		if ($pos!==false){
+			return substr($path,0, $pos);
+		}
+
+		$pos = strpos($path, 'vendor');
+		if ($pos!==false){
+			return substr($path,0, $pos);
+		}
+
+		$pos = strpos($path, 'public');
+		if ($pos!==false){
+			return substr($path,0, $pos);
+		}
+
+		$pos = strpos($path, 'app');
+		if ($pos!==false){
+			return substr($path,0, $pos);
+		}
+
+		
+
+		
+
+		return $root_path = realpath(__DIR__ );
+		return $_SERVER['DOCUMENT_ROOT'];
         $rutaFachada = realpath(__DIR__);
         $rutaRaiz = dirname(dirname(dirname($rutaFachada)));
 		return $rutaRaiz;
