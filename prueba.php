@@ -9,7 +9,7 @@ use Jonathan13779\Framework\Modules\Http\Request;
 use Jonathan13779\Framework\Modules\Http\Router;
 
 use Jonathan13779\Framework\Modules\Container\Container;
-
+use Jonathan13779\Framework\Modules\Http\Controller;
 
 class tres{
 
@@ -70,17 +70,17 @@ $_SERVER['REQUEST_URI'] = '/api/administracion/facturacion/5/prueba';
 
 //Router::get('/api/contabilidad/clientes','controller');  
 
-class TestConstroller{
+class TestConstroller extends Controller{
     public function __invoke($id,$action)
     {
-        return 'hola mundo'.$id.$action;
+        return $this->responseView('vista.php');
     }
 }
 
 class Test{
     public function process($input , $handler)
     {
-        $res = 'fin'.$handler->handle($input);
+        $res = $handler->handle($input);
         return $res;
     }
 }
@@ -129,4 +129,4 @@ $core = CoreFactory::create(CoreHttp::class, [
 
 $res = $core->handle(new Request);
 //echo Router::obtenerRutaStorage()."\n";
-var_dump($res);
+//var_dump($res);

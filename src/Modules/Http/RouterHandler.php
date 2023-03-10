@@ -5,6 +5,7 @@ namespace Jonathan13779\Framework\Modules\Http;
 use Jonathan13779\Framework\Contracts\MiddlewareHandlerContract;
 use Jonathan13779\Framework\Modules\Container\Container;
 use Jonathan13779\Framework\Modules\Middleware\MiddlewareHandlerTrait;
+use Jonathan13779\Framework\Modules\Http\Response;
 
 class RouterHandler extends MiddlewareHandlerContract{
     use MiddlewareHandlerTrait;
@@ -22,8 +23,6 @@ class RouterHandler extends MiddlewareHandlerContract{
     protected function execute($request)
     {
         $controller = Container::build($this->route->controller);
-        return call_user_func_array([$controller, $this->route->method], $this->route->params);
-        print_r($this->route);
-        return 'enrutadooooo';
+        return call_user_func_array([$controller, $this->route->method], $this->route->params);       
     }
 }
