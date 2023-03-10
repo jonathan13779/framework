@@ -2,19 +2,85 @@
 
 require __DIR__.'/vendor/autoload.php';
 
+use Jonathan13779\Framework\Contracts\RouterInterface;
 use Jonathan13779\Framework\CoreFactory;
 use Jonathan13779\Framework\CoreHttp;
 use Jonathan13779\Framework\Modules\Http\Request;
 use Jonathan13779\Framework\Modules\Http\Router;
-$_SERVER['REQUEST_URI'] = '/api/administracion/facturacion';
+
+use Jonathan13779\Framework\Modules\Container\Container;
+
+
+class tres{
+
+}
+
+class cuatro{
+    
+}
+
+class dos{
+    function __construct(
+        public tres $tres
+    )
+    {
+        echo "dos\n";        
+    }
+}
+
+class uno extends dos {
+
+    public function __construct(
+        cuatro $cuatro
+    )
+    {
+        echo "uno\n";
+    }
+
+}
+
+/*
+Container::build(uno::class);
+
+
+interface RouterInterface{
+
+}
+
+class RouterModule implements RouterInterface{
+
+}
+
+Container::$singleton[RouterInterface::class] = function (){
+    return new RouterModule;
+};
+
+
+Container::$definitions[RouterModule::class] = function (){
+    return new RouterModule;
+};
+*/
+
+
+//Container::build(RouterInterface::class);
+
+
+$_SERVER['REQUEST_URI'] = '/api/administracion/facturacion/5/prueba';
 //$_SERVER['REQUEST_URI'] = '/cliente/5/grupo/8';
 
 //Router::get('/api/contabilidad/clientes','controller');  
 
+class TestConstroller{
+    public function __invoke($id,$action)
+    {
+        return 'hola mundo'.$id.$action;
+    }
+}
+
 class Test{
     public function process($input , $handler)
     {
-        $res = $handler->handle($input);
+        $res = 'fin'.$handler->handle($input);
         return $res;
     }
 }
@@ -41,7 +107,7 @@ class Test3{
 Router::group('/api', function(){
     
     Router::group('/administracion', function(){
-        Router::get('/clientes','controller');
+        Router::get('/clientes',TestConstroller::class);
     });
     
     
@@ -50,11 +116,11 @@ Router::group('/api', function(){
 },[Test::class]);
 
 Router::group('/api/administracion', function(){
-    Router::get('/facturacion','controller',[Test3::class]);
+    Router::get('/facturacion/:id/:action',TestConstroller::class,[Test3::class]);
 },[Test2::class]);
 
 
-Router::get('/cliente/:id/grupo/:grupo','controller');
+Router::get('/cliente/:id/grupo/:grupo',TestConstroller::class);
 
 
 $core = CoreFactory::create(CoreHttp::class, [

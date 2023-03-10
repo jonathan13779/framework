@@ -2,9 +2,10 @@
 
 namespace Jonathan13779\Framework\Modules\Http;
 
+use Jonathan13779\Framework\Contracts\RouterInterface;
 use Jonathan13779\Framework\Modules\Http\Route;
 
-class Router{
+class Router implements RouterInterface{
     private static $prefix = '';
 	private static $middlewares = [];
 	private static $routes = [
@@ -58,8 +59,13 @@ class Router{
 	}
 
 
+	public function match(Request $request): ?Route
+	{
+		return self::matchRoute($request);
+	}
 
-    public static function match(Request $request){
+    private static function matchRoute(Request $request): ?Route
+	{
         $uri =  $request->getUri();
         $method = $request->getMethod();
         $groups = self::$groups;
@@ -75,7 +81,7 @@ class Router{
 				self::$middlewares = array_merge(self::$middlewares, $group['middleware']);
                 self::reset();
                 $group['callback']();
-                $result = self::match($request);
+                $result = self::matchRoute($request);
                 if($result){
                     return $result;
                 }
@@ -97,7 +103,7 @@ class Router{
 			}
 		}		
 
-        return false;
+        return null;
 
     }
 

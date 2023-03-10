@@ -4,11 +4,13 @@ namespace Jonathan13779\Framework\Modules\Container;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionFunction;
+use Jonathan13779\Framework\Contracts\RouterInterface;
 
 class Container{
 
     public static $singleton = [];
     private static $instances = [];
+    public static $definitions = [];
 	public static $config = [];
 
 	public static function set($definition, $value){
@@ -17,10 +19,10 @@ class Container{
 
     public static function isDefined($definition): bool
     {
-        if (array_key_exists($definition, self::$config)){
+        if (isset(self::$definitions[$definition])){
             return true;
         }
-        if (array_key_exists($definition, self::$singleton)){
+        if (isset(self::$singleton[$definition])){
             return true;
         }
 
@@ -54,6 +56,7 @@ class Container{
     }
 
     public static function setInstance($class,$object){
+        if (isset(self::$singleton[$class]))
         self::$instances[$class] = $object;
     }
 
@@ -75,7 +78,7 @@ class Container{
     }
 
     public static function build($class,$config=[])
-    {
+    {   
         if ($class instanceof \Closure) {
             
             $funcionReflexionada = new ReflectionFunction($class);
@@ -85,17 +88,31 @@ class Container{
 
             return $funcionReflexionada->invokeArgs($finalParams);
         }
+        $sourceClass = $class;
         if (isset(self::$instances[$class])){
             return self::$instances[$class];
         }
         
+        if(isset(self::$singleton[$class])){            
+            $class = self::$singleton[$class];
+        }
+        else
+        {
+            $class = self::getDefinition($class);
+        }
+        
+        if (is_callable($class)){
+            $object = $class();
+            self::setInstance($sourceClass,$object);
+            return $object;
+        }
 
         $objReflection = new ReflectionClass($class);
         
         $contructor = $objReflection->getConstructor();
         if (is_null($contructor)) {
             $object = new $class;
-            self::setInstance($class,$object);
+            self::setInstance($sourceClass,$object);
             if (isset($config['execute'])){                
                 self::executeMethod($object,$config['execute']);
             }   
@@ -111,7 +128,7 @@ class Container{
 
         $object = $objReflection->newInstanceArgs($finalParams);
 		
-        self::setInstance($class,$object);
+        self::setInstance($sourceClass,$object);
 
         if (isset($config['execute'])){                
             self::executeMethod($object,$config['execute']);
@@ -119,6 +136,14 @@ class Container{
               
         return $object;
     }
+
+    private static function getDefinition($class){
+        if (is_string($class) && isset(self::$definitions[$class])){
+            
+            return self::getDefinition(self::$definitions[$class]);
+        }
+        return $class;
+    } 
 
     public static function get($class,$config=[]){
         return self::build($class,$config);

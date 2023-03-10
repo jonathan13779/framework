@@ -6,7 +6,7 @@ use Jonathan13779\Framework\Modules\Container\Container;
 trait MiddlewareHandlerTrait{
     
 
-    public function handle($inputData)
+    public function handleMiddleware($inputData)
     {
         $middleware = current($this->middlewares);
         next($this->middlewares);
@@ -14,15 +14,15 @@ trait MiddlewareHandlerTrait{
         if ($middleware) {
             $middleware = Container::build($middleware);
 
-            $response = $middleware->process($inputData, $this);
+            $result = $middleware->process($inputData, $this);
 
-            return $response;
+            return $result;
         }
         else{
+            
             return $this->execute($inputData);
         }
 
-        return $result;
     }
 
 }
