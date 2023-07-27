@@ -11,7 +11,7 @@ class CoreFactory{
 
     public static function create($coreClassHandler, array $middlewares = []): MiddlewareHandlerContract
     {        
-        CoreProvider::register(CoreRegisterProvider::class);
+        CoreProvider::register(new CoreRegisterProvider);
         $core = Container::build($coreClassHandler);
         call_user_func_array([$core, 'setMiddlewares'], $middlewares);
         return $core;

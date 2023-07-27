@@ -3,6 +3,7 @@
 namespace Jonathan13779\Framework;
 
 use Jonathan13779\Framework\Modules\Container\Container;
+use Jonathan13779\Framework\Contracts\BaseCoreProvider;
 
 class CoreProvider{
 
@@ -16,14 +17,9 @@ class CoreProvider{
         
     }
 
-    public static function register($class){
-        $class::register();
+    public static function register(BaseCoreProvider $provider){
+        $provider::register();
+        self::singletons($provider::$singletons);
+        self::definitions($provider::$definitions);
     }
-
-    public function handle($request)
-    {
-        return $this->handleMiddleware($request);
-    }
-
-
 }
