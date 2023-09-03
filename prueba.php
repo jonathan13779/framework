@@ -123,9 +123,12 @@ Router::group('/api/administracion', function(){
 Router::get('/cliente/:id/grupo/:grupo',TestConstroller::class);
 
 
-$core = CoreFactory::create(CoreHttp::class, [
-    Test::class
-]);
+$core = CoreFactory::create(CoreHttp::class);
+
+
+$_SERVER['REQUEST_URI'] = '/api/administracion/facturacion/5/prueba';
+//$_SERVER['REQUEST_URI'] = '/cliente/5/grupo/8';
+
 
 $res = $core->handle(new Request);
 //echo Router::obtenerRutaStorage()."\n";
