@@ -97,6 +97,7 @@ class Test2{
 class Test3{
     public function process($input , $handler)
     {
+        echo "\nTEST3==========================\n";
         $res = $handler->handle($input);
         return $res;
     }
@@ -131,5 +132,6 @@ $_SERVER['REQUEST_URI'] = '/api/administracion/facturacion/5/prueba';
 
 
 $res = $core->handle(new Request);
+//print_r($res);
 //echo Router::obtenerRutaStorage()."\n";
 //var_dump($res);

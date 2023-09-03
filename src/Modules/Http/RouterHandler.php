@@ -8,7 +8,7 @@ use Jonathan13779\Framework\Modules\Middleware\MiddlewareHandlerTrait;
 use Jonathan13779\Framework\Modules\Http\Response;
 
 class RouterHandler extends MiddlewareHandlerContract{
-    use MiddlewareHandlerTrait;
+    //use MiddlewareHandlerTrait;
 
     public function __construct(
         private Route $route)

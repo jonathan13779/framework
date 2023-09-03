@@ -12,7 +12,7 @@ use Jonathan13779\Framework\Modules\Http\Response;
 use Throwable;
 
 class CoreHttp extends MiddlewareHandlerContract{
-    use MiddlewareHandlerTrait;
+    //use MiddlewareHandlerTrait;
     
     public function __construct(
         private RouterInterface $router
