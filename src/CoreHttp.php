@@ -51,7 +51,7 @@ class CoreHttp extends MiddlewareHandlerContract{
         }
         
 		header('Content-Type: application/json');
-		echo json_encode($this->data);				
+		echo json_encode($response->data);				
 		
         session_write_close();
 		if (function_exists('fastcgi_finish_request'))
