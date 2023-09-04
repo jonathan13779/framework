@@ -4,12 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ff006a5c8e7ce283ffaef5cea3dce32",
-    "packages": [],
+    "content-hash": "2b323ea38884aac9acd257e015fa5431",
+    "packages": [
+        {
+            "name": "jonathan13779/database",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jonathan13779/database.git",
+                "reference": "d4d70fc92d1d13db3c947b84b6174c72968a4c51"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jonathan13779/database/zipball/d4d70fc92d1d13db3c947b84b6174c72968a4c51",
+                "reference": "d4d70fc92d1d13db3c947b84b6174c72968a4c51",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "default-branch": true,
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Jonathan13779\\Database\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Jonathan"
+                }
+            ],
+            "description": "orm active record",
+            "support": {
+                "source": "https://github.com/jonathan13779/database/tree/main",
+                "issues": "https://github.com/jonathan13779/database/issues"
+            },
+            "time": "2023-09-03T17:51:49+00:00"
+        }
+    ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "jonathan13779/database": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

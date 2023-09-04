@@ -14,5 +14,13 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/jonathan13779/database.git"
+        }        
+      ],     
+    "require": {
+        "jonathan13779/database": "dev-main"
+    }
 }
